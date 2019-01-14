@@ -13,13 +13,14 @@ BOT_NAME = 'xigua'
 
 SPIDER_MODULES = ['xigua.spiders']
 NEWSPIDER_MODULE = 'xigua.spiders'
-
+#LOG_FILE = "xigua.log"
+LOG_LEVEL = "DEBUG"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'xigua (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -46,9 +47,9 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'xigua.middlewares.XiguaSpiderMiddleware': 543,
-#}
+SPIDER_MIDDLEWARES = {
+    'xigua.middlewares.XiguaSpiderMiddleware': 543,
+}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html

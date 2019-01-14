@@ -7,6 +7,20 @@
 
 from scrapy import signals
 
+import re
+
+from scrapy.http import HtmlResponse
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+options.add_argument('window-size=3840x2160')
+options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36")
+
+driver = webdriver.Chrome(chrome_options=options)
 
 class XiguaSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -78,7 +92,13 @@ class XiguaDownloaderMiddleware(object):
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        return None
+        # return None
+        driver.get(request.url)
+        #WebDriverWait(driver, 10).until(
+            #EC.presence_of_element_located((By.XPATH, "//pre[@style]"))
+        #)
+        body = driver.page_source
+        return HtmlResponse(driver.current_url, body=body, encoding='utf-8', request=request)
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
